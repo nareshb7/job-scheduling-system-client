@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const DotenvWebpackPlugin = require("dotenv-webpack");
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -12,6 +13,7 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
     alias: {
       pages: path.resolve(__dirname, "src/pages"),
+      routes: path.resolve(__dirname, "src/routes"),
     },
   },
   module: {
@@ -51,6 +53,7 @@ module.exports = {
       filename: "404.html",
       inject: false, // Prevents Webpack from injecting script tags into 404.html
     }),
+    new DotenvWebpackPlugin(),
   ],
   devServer: {
     port: 8080,

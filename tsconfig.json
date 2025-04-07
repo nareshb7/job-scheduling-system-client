@@ -14,7 +14,8 @@
     "isolatedModules": true,
     "baseUrl": "./src",
     "paths": {
-      "pages/*": ["pages/*"]
+      "pages/*": ["pages/*"],
+      "routes/*": ["routes/*"]
       // Add more aliases as needed
     }
   },

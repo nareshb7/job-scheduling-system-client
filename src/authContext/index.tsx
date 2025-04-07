@@ -8,7 +8,7 @@ export interface AuthProviderProps {
 }
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [isLoggedin, setIsLoggedIn] = useState(true);
+  const [isLoggedin, setIsLoggedIn] = useState(false);
 
   return (
     <AuthContext.Provider value={null}>
