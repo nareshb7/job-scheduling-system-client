@@ -11,7 +11,12 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noEmit": false,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": "./src",
+    "paths": {
+      "pages/*": ["pages/*"]
+      // Add more aliases as needed
+    }
   },
   "include": ["src"]
 }

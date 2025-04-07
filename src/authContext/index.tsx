@@ -1,5 +1,5 @@
+import Welcome from "pages/welcome";
 import React, { createContext, useContext, useState } from "react";
-import Login from "../pages/login";
 
 const AuthContext = createContext(null);
 
@@ -12,7 +12,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   return (
     <AuthContext.Provider value={null}>
-      {isLoggedin ? children : <Login />}
+      {isLoggedin ? children : <Welcome />}
     </AuthContext.Provider>
   );
 };
