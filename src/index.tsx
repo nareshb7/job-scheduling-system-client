@@ -9,5 +9,12 @@ const rootEl = document.getElementById("root");
 
 if (rootEl) {
   const root = createRoot(rootEl);
-  root.render(<RouterProvider router={router} />);
+  root.render(
+    <AuthProvider>
+      <>
+        {" "}
+        <RouterProvider router={router} />
+      </>
+    </AuthProvider>
+  );
 }

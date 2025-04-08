@@ -14,6 +14,9 @@ module.exports = {
     alias: {
       pages: path.resolve(__dirname, "src/pages"),
       routes: path.resolve(__dirname, "src/routes"),
+      common: path.resolve(__dirname, "src/common"),
+      service: path.resolve(__dirname, "src/service"),
+      authContext: path.resolve(__dirname, "src/authContext"),
     },
   },
   module: {

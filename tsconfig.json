@@ -15,7 +15,10 @@
     "baseUrl": "./src",
     "paths": {
       "pages/*": ["pages/*"],
-      "routes/*": ["routes/*"]
+      "routes/*": ["routes/*"],
+      "common/*": ["common/*"],
+      "service/*": ["service/*"],
+      "authContext/*": ["authContext/*"],
       // Add more aliases as needed
     }
   },
