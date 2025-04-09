@@ -19,6 +19,8 @@
       "common/*": ["common/*"],
       "service/*": ["service/*"],
       "authContext/*": ["authContext/*"],
+      "utils/*": ["utils/*"],
+      "components/*": ["components/*"],
       // Add more aliases as needed
     }
   },

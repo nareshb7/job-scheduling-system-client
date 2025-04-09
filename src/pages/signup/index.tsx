@@ -1,18 +1,8 @@
 import Button from "common/button";
 import { Input } from "common/input";
+import { SignupData, SignupPageProps } from "pages/types";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import httpMethods from "service";
-
-export interface SignupData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  mobile: string;
-  location: string;
-  password: string;
-  role: string;
-}
 
 const initialSignupData = {
   firstName: "Naresh",
@@ -24,8 +14,7 @@ const initialSignupData = {
   role: "UI Developer",
 };
 
-const SignupPage: React.FC = () => {
-  const navigate = useNavigate();
+const SignupPage = ({ onPageChange }: SignupPageProps) => {
   const [formData, setFormData] = useState<SignupData>(initialSignupData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,13 +26,14 @@ const SignupPage: React.FC = () => {
     e.preventDefault();
     try {
       await httpMethods.post("/auth/signup", formData);
+      onPageChange("LOGIN");
     } catch (err: any) {
       console.error("singup_error::", err?.message);
     }
   };
 
   const handleCancel = () => {
-    navigate("/");
+    onPageChange("WELCOME");
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">

@@ -17,6 +17,8 @@ module.exports = {
       common: path.resolve(__dirname, "src/common"),
       service: path.resolve(__dirname, "src/service"),
       authContext: path.resolve(__dirname, "src/authContext"),
+      utils: path.resolve(__dirname, "src/utils"),
+      components: path.resolve(__dirname, "src/components"),
     },
   },
   module: {

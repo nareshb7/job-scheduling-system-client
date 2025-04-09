@@ -1,44 +1,36 @@
-import { useAuthContext } from "authContext/index";
 import Button from "common/button";
 import InputWithLabel from "common/input";
+import { LoginData, LoginPageProps } from "pages/types";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import httpMethods from "service/index";
-
-export interface LoginData {
-  email: string;
-  password: string;
-}
+import { CURRENT_USER_KEY } from "utils/constants";
 
 const initialLoginData = {
   email: "nareshbjava7@gmail.com",
   password: "Naresh@123",
 };
 
-const LoginPage = () => {
-  const navigate = useNavigate();
-  const { setIsLoggedIn } = useAuthContext();
+const LoginPage = ({ onPageChange }: LoginPageProps) => {
   const [formData, setFormData] = useState<LoginData>(initialLoginData);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log("changeL:::", name, value);
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await httpMethods.post("/auth/login", formData);
-      console.log("login_data:::", res);
-      setIsLoggedIn(true);
-      navigate("/");
+      const { success, data } = await httpMethods.post("/auth/login", formData);
+      console.log("login_data:::", data);
+      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(data._id));
+      onPageChange("", data);
     } catch (err: any) {
       console.error("login_error::", err?.message);
     }
   };
   const handleCancel = () => {
-    navigate("/");
+    onPageChange("WELCOME");
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
