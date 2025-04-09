@@ -1,6 +1,12 @@
 import React from "react";
 
-export type InputType = "text" | "checkbox" | "password" | "tel" | "email";
+export type InputType =
+  | "text"
+  | "checkbox"
+  | "password"
+  | "tel"
+  | "email"
+  | "date";
 
 export interface InputProps {
   label?: string;

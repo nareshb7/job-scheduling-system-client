@@ -5,6 +5,7 @@ import LoginPage from "pages/login";
 import SignupPage from "pages/signup";
 import { AuthPageProps, CurrentPageType, WelcomePageProps } from "pages/types";
 import { useState } from "react";
+import { PROJECT_NAME } from "utils/constants";
 
 const AuthPage = ({ onLoginSuccess, toggleTheme, theme }: AuthPageProps) => {
   const [currentpage, setCurrentPage] = useState<CurrentPageType>("WELCOME");
@@ -46,7 +47,7 @@ const WelcomePage = ({
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 dark:text-white transition-colors duration-300">
       {/* Navbar */}
       <nav className="flex flex-wrap items-center justify-between px-8 py-4 bg-white text-gray-800 shadow dark:bg-gray-800 dark:text-white transition-colors duration-300">
-        <h1 className="text-2xl font-bold">Job Scheduling System</h1>
+        <h1 className="text-2xl font-bold">{PROJECT_NAME}</h1>
         <div className="space-x-4 flex">
           <ThemeButton toggleTheme={toggleTheme} theme={theme} />
           <Button

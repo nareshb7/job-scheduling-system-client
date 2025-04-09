@@ -1,22 +1,28 @@
 import App from "../App";
-import LoginPage from "pages/login";
 import { createBrowserRouter } from "react-router-dom";
-import AuthProvider from "../authContext";
-import SignupPage from "pages/signup";
+import JobApplicationForm from "pages/jobApplicationForm";
+import Dashboard from "pages/dashboard";
 
 const basename = process.env.PUBLIC_URL || "/";
-
-console.log("base:::", basename);
 
 const router = createBrowserRouter(
   [
     {
       path: "/",
       element: <App />,
-      children: [],
+      children: [
+        {
+          path: "/",
+          element: <Dashboard />,
+        },
+        {
+          path: "application-form",
+          element: <JobApplicationForm />,
+        },
+      ],
     },
   ],
-  { basename: "/" }
+  { basename }
 );
 
 export default router;
