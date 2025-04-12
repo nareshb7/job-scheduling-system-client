@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
-      className={`px-5 py-2 rounded-lg text-sm font-medium ${className}`}
+      className={`cursor-pointer px-5 py-2 rounded-lg text-sm font-medium ${className}`}
       onClick={onClick}
     >
       {children}

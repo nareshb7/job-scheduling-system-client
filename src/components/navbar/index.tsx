@@ -28,9 +28,11 @@ const Navbar = () => {
         <Button className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">
           Profile
         </Button>
-        <Button className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">
-          Resume
-        </Button>
+        <Link to="/resume-list">
+          <Button className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">
+            Resume
+          </Button>
+        </Link>
         <Button className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">
           Interview Questions
         </Button>

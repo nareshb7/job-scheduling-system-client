@@ -27,6 +27,7 @@ export const Input: React.FC<InputProps> = ({
   onChange = () => "",
   required = false,
   name,
+  ...rest
 }) => {
   return (
     <input
@@ -37,6 +38,7 @@ export const Input: React.FC<InputProps> = ({
       onChange={onChange}
       required={required}
       name={name}
+      {...rest}
     />
   );
 };

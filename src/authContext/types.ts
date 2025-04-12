@@ -10,6 +10,8 @@ export interface AuthContextProps {
   toggleTheme: () => void;
   theme: ThemeType;
   handleLogout: () => void;
+  fetchResumes: () => void;
+  getApplications: () => void;
 }
 
 export interface User {

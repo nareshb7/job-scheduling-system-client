@@ -1,9 +1,11 @@
 import { useAuthContext } from "authContext/index";
 import Button from "common/button";
 import InputWithLabel, { Input } from "common/input";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import httpMethods from "service/index";
+import { RootState } from "store/index";
 
 const initialForm = {
   jobId: "J12345",
@@ -17,15 +19,20 @@ const initialForm = {
   jobDescription: "Looking for immediate joiner",
   companyLocation: "Hyderabad",
   notes: "",
+  resumeId: "",
 };
 
 const JobApplicationForm = () => {
   const navigate = useNavigate();
-  const { currentuser } = useAuthContext();
+  const { currentuser, getApplications } = useAuthContext();
+  const resumes = useSelector((state: RootState) => state.Resume.list);
+
   const [formData, setFormData] = useState(initialForm);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -40,6 +47,11 @@ const JobApplicationForm = () => {
       });
       console.log("form_data:::", formData, res);
       // setFormData(initialForm);
+      alert("Application created succesfully..!");
+      getApplications();
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (err: any) {
       console.error("create_application_error:", err.message);
     }
@@ -118,6 +130,17 @@ const JobApplicationForm = () => {
           placeHolder="Company Location"
           onChange={handleChange}
         />
+        <select
+          className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-800 dark:bg-gray-800 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          name="resumeId"
+          value={formData.resumeId}
+          onChange={handleChange}
+        >
+          <option value="">Select Resume</option>
+          {resumes.map((resume) => (
+            <option value={resume._id}>{resume.name}</option>
+          ))}
+        </select>
       </div>
 
       {/* Job Description Field */}

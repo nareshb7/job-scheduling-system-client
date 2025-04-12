@@ -21,6 +21,7 @@
       "authContext/*": ["authContext/*"],
       "utils/*": ["utils/*"],
       "components/*": ["components/*"],
+      "store/*": ["store/*"],
       // Add more aliases as needed
     }
   },

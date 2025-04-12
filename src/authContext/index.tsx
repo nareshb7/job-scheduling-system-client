@@ -4,10 +4,14 @@ import { createContext, useContext, useEffect, useState } from "react";
 import httpMethods from "service/index";
 import { CURRENT_THEME, CURRENT_USER_KEY } from "utils/constants";
 import { AuthContextProps, AuthProviderProps, User } from "./types";
+import { useDispatch } from "react-redux";
+import { setResumesList } from "store/reducers/resumeSlice";
+import { setApplications } from "store/reducers/applicationSlice";
 
 const AuthContext = createContext<AuthContextProps | null>(null);
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
+  const dispatch = useDispatch();
   const [isLoggedin, setIsLoggedIn] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [currentuser, setCurrentUser] = useState<User | null>(null);
@@ -32,6 +36,27 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     localStorage.removeItem(CURRENT_USER_KEY);
   };
 
+  const getApplications = async () => {
+    try {
+      const { data } = await httpMethods.get(
+        `/applications/${currentuser?._id}`
+      );
+      dispatch(setApplications(data));
+    } catch (err: any) {
+      console.error("get_applications_error:", err.message);
+    }
+  };
+  const fetchResumes = async () => {
+    try {
+      const { data } = await httpMethods.get(
+        "/resume/list/" + currentuser?._id
+      );
+      dispatch(setResumesList(data));
+    } catch (err: any) {
+      console.error("fetch_resume_error:", err.message);
+    }
+  };
+
   useEffect(() => {
     const getCurrentUser = async () => {
       const userId = localStorage.getItem(CURRENT_USER_KEY);
@@ -41,7 +66,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       const id = JSON.parse(userId);
       try {
         setIsLoading(true);
-        const { data } = await httpMethods.get(`/user?id=${id}`);
+        const { data } = await httpMethods.get(`/user/${id}`);
 
         if (data._id) {
           setIsLoggedIn(true);
@@ -61,6 +86,13 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   useEffect(() => {
+    if (currentuser?._id) {
+      getApplications();
+      fetchResumes();
+    }
+  }, [currentuser?._id]);
+
+  useEffect(() => {
     document.documentElement.setAttribute(
       "data-theme",
       isDarkMode ? "dark" : "light"
@@ -76,6 +108,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         setIsLoggedIn,
         toggleTheme,
         handleLogout,
+        fetchResumes,
+        getApplications,
       }}
     >
       {isLoading ? (
