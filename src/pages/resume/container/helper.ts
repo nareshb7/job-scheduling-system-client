@@ -5,7 +5,6 @@ export const resumeDownload = async (resumeId: string, fileName: string) => {
     const response = await httpMethods.get(`/resume/download/${resumeId}`, {
       responseType: "blob", // crucial for handling binary data
     });
-    console.log("response:::", response);
     // Create a Blob from the response
     const url = window.URL.createObjectURL(new Blob([response]));
 

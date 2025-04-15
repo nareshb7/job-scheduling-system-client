@@ -20,6 +20,7 @@ const initialForm = {
   companyLocation: "Hyderabad",
   notes: "",
   resumeId: "",
+  hrEmail: "",
 };
 
 const JobApplicationForm = () => {
@@ -45,7 +46,6 @@ const JobApplicationForm = () => {
         ...formData,
         userId: currentuser?._id,
       });
-      console.log("form_data:::", formData, res);
       // setFormData(initialForm);
       alert("Application created succesfully..!");
       getApplications();
@@ -122,6 +122,12 @@ const JobApplicationForm = () => {
           name="hrName"
           value={formData.hrName}
           placeHolder="HR Name"
+          onChange={handleChange}
+        />
+        <Input
+          name="hrEmail"
+          value={formData.hrEmail}
+          placeHolder="HR Email"
           onChange={handleChange}
         />
         <Input

@@ -1,23 +1,5 @@
 import React from "react";
-
-export type InputType =
-  | "text"
-  | "checkbox"
-  | "password"
-  | "tel"
-  | "email"
-  | "date";
-
-export interface InputProps {
-  label?: string;
-  type?: InputType;
-  className?: string;
-  placeHolder?: string;
-  value: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-  name?: string;
-}
+import { InputProps, SelectProps, TextareaProps } from "./types";
 
 export const Input: React.FC<InputProps> = ({
   type = "text",
@@ -70,6 +52,71 @@ const InputWithLabel: React.FC<InputProps> = ({
         name={name}
       />
     </div>
+  );
+};
+
+export const Textarea = ({
+  name,
+  placeHolder,
+  value,
+  label,
+  className,
+  onChange,
+}: TextareaProps) => {
+  const textArea = () => (
+    <textarea
+      name={name}
+      placeholder={placeHolder}
+      value={value}
+      onChange={onChange}
+      className={`p-2 border border-gray-300 rounded mb-4 ${className}`}
+    />
+  );
+  return label ? (
+    <div>
+      <label className="block mb-1 text-sm font-medium text-gray-700">
+        {label}
+      </label>
+      {textArea()}
+    </div>
+  ) : (
+    textArea()
+  );
+};
+
+export const Select = ({
+  name,
+  value,
+  onChange,
+  options,
+  label,
+}: SelectProps) => {
+  const selectComp = () => {
+    return (
+      <select
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-800 dark:bg-gray-800 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option value="">Select an option</option>
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+    );
+  };
+  return label ? (
+    <div>
+      <label className="block mb-1 text-sm font-medium text-gray-700">
+        {label}
+      </label>
+      {selectComp()}
+    </div>
+  ) : (
+    selectComp()
   );
 };
 

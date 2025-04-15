@@ -33,9 +33,11 @@ const Navbar = () => {
             Resume
           </Button>
         </Link>
-        <Button className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">
-          Interview Questions
-        </Button>
+        <Link to="/interview-questions">
+          <Button className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">
+            Interview Questions
+          </Button>
+        </Link>
         <Button
           className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
           onClick={handleLogout}

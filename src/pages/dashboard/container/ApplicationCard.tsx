@@ -21,7 +21,7 @@ const ApplicationCard = ({ application, onClick }: ApplicationCareProps) => {
       </div>
 
       <div className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-        <strong>Status:</strong> {application.applicatinStatus}
+        <strong>Status:</strong> {application.applicationStatus}
       </div>
 
       <div className="text-sm text-gray-700 dark:text-gray-300 mb-2">

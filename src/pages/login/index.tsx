@@ -22,7 +22,6 @@ const LoginPage = ({ onPageChange }: LoginPageProps) => {
     e.preventDefault();
     try {
       const { success, data } = await httpMethods.post("/auth/login", formData);
-      console.log("login_data:::", data);
       localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(data._id));
       onPageChange("", data);
     } catch (err: any) {
