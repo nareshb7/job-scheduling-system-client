@@ -74,7 +74,7 @@ const EditInterviewRounds = ({
           onChange={handleChange}
         />
         <Textarea
-          label="Questions: (add questions by seperating with semicolons(';'))"
+          label="Questions:"
           name="questionsAsked"
           placeHolder="Questions Asked"
           value={newRound.questionsAsked as string}

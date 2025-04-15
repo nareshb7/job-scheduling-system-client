@@ -46,21 +46,23 @@ const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
         <>
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Application Details</h2>
-            <Button
-              onClick={handleEditClick}
-              className="bg-gray-200 text-gray-800 hover:bg-gray-300 px-4 py-2 rounded"
-            >
-              Update Interview Round info
-            </Button>
-            <Button className="bg-gray-200 text-gray-800 hover:bg-gray-300 px-4 py-2 rounded">
-              Send Follow up Email
-            </Button>
-            <Button
-              onClick={onBack}
-              className="bg-gray-400 text-gray-800 hover:bg-gray-500 px-4 py-2 rounded"
-            >
-              Back
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={handleEditClick}
+                className="bg-gray-200 text-gray-800 hover:bg-gray-300 px-4 py-2 rounded"
+              >
+                Update Interview Round info
+              </Button>
+              <Button className="bg-gray-200 text-gray-800 hover:bg-gray-300 px-4 py-2 rounded">
+                Send Follow up Email
+              </Button>
+              <Button
+                onClick={onBack}
+                className="bg-gray-400 text-gray-800 hover:bg-gray-500 px-4 py-2 rounded"
+              >
+                Back
+              </Button>
+            </div>
           </div>
 
           <div className="space-y-4">
@@ -121,9 +123,9 @@ export const InterviewRoundCard = ({
       </p>
       <p>
         <strong>Questions:</strong>{" "}
-        {(interviewRound.questionsAsked as string[]).map((question) => (
+        {(interviewRound.questionsAsked as string[]).map((question, index) => (
           <li key={question} style={{ listStyle: "none", marginLeft: "10px" }}>
-            {question}
+            {index + 1}. {question}
           </li>
         ))}
       </p>

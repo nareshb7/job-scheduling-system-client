@@ -44,6 +44,22 @@ const InterviewQuestionsPage = () => {
       setIsLoading(false);
     }
   };
+  const handleDeleteQuestion = async (question: InterviewQuestion) => {
+    try {
+      let confirm = window.confirm(
+        `Do u want to delete this question?\n "${question.question}"`
+      );
+      if (confirm) {
+        const res = await httpMethods.deleteMethod(
+          "/interview-questions/" + question._id
+        );
+        console.log("res:::", res);
+        setQuestions((prev) => prev.filter((q) => q._id !== question._id));
+      }
+    } catch (err: any) {
+      console.error("question_delete_error:", err.message);
+    }
+  };
 
   useEffect(() => {
     fetchQuestions();
@@ -81,11 +97,23 @@ const InterviewQuestionsPage = () => {
         {questions.map((q) => (
           <div
             key={q._id}
-            className="border border-gray-300 dark:border-gray-600 rounded p-3 bg-gray-50 dark:bg-gray-900"
+            className="flex justify-between items-center border border-gray-300 dark:border-gray-600 rounded p-3 bg-gray-50 dark:bg-gray-900"
           >
-            <p className="font-semibold">Q: {q.question}</p>
-            {q.answer && <p className="text-gray-600">A: {q.answer}</p>}
-            <p className="text-sm text-gray-500 mt-1">Asked at: {q.company}</p>
+            <div>
+              <p className="font-semibold">Q: {q.question}</p>
+              {q.answer && <p className="text-gray-600">A: {q.answer}</p>}
+              <p className="text-sm text-gray-500 mt-1">
+                Asked at: {q.company}
+              </p>
+            </div>
+            <div>
+              <Button
+                className="bg-red-400 dark:bg-red-500"
+                onClick={() => handleDeleteQuestion(q)}
+              >
+                Delete
+              </Button>
+            </div>
           </div>
         ))}
       </div>

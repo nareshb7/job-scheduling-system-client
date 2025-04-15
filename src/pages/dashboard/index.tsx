@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "store/index";
 import ApplicationCard from "./container/ApplicationCard";
@@ -8,6 +8,8 @@ import Button from "common/button";
 import { MdRefresh } from "react-icons/md";
 import { useAuthContext } from "authContext/index";
 import Spinner from "common/spinner";
+import httpMethods from "service/index";
+import axios from "axios";
 
 const Dashboard = () => {
   const { getApplications } = useAuthContext();
