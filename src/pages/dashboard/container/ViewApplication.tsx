@@ -6,6 +6,7 @@ import EditInterviewRounds from "./EditApplication";
 import httpMethods from "service/index";
 import Spinner from "common/spinner";
 import { useAuthContext } from "authContext/index";
+import { getViewConfig } from "./helper";
 
 const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
   const { currentuser } = useAuthContext();
@@ -63,66 +64,16 @@ const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
           </div>
 
           <div className="space-y-4">
-            <div>
-              <span className="font-semibold inline-block w-[100px]">
-                Job ID
-              </span>{" "}
-              : {application.jobId}
-            </div>
-            <div>
-              <span className="font-semibold inline-block w-[100px]">
-                Position
-              </span>{" "}
-              : {application.position}
-            </div>
-            <div>
-              <span className="font-semibold inline-block w-[100px]">
-                Company
-              </span>{" "}
-              : {application.company}
-            </div>
-            <div>
-              <span className="font-semibold inline-block w-[100px]">
-                Location
-              </span>{" "}
-              : {application.companyLocation}
-            </div>
-            <div>
-              <span className="font-semibold inline-block w-[100px]">
-                Applied Date
-              </span>{" "}
-              : {getDate(application.appliedDate)}
-            </div>
-            <div>
-              <span className="font-semibold inline-block w-[100px]">
-                Status
-              </span>{" "}
-              : {application.applicationStatus}
-            </div>
-            <div>
-              <span className="font-semibold inline-block w-[100px]">
-                Next Follow-up
-              </span>{" "}
-              : {getDate(application.nextFollowup)}
-            </div>
-            <div>
-              <span className="font-semibold inline-block w-[100px]">
-                HR Name
-              </span>{" "}
-              : {application.hrData.name}
-            </div>
-            <div>
-              <span className="font-semibold inline-block w-[100px]">
-                HR Phone
-              </span>{" "}
-              : {application.hrData.phone}
-            </div>
-            <div>
-              <span className="font-semibold inline-block w-[100px]">
-                HR Email
-              </span>{" "}
-              : {application.hrData.email}
-            </div>
+            {getViewConfig(application).map((item) =>
+              item.value ? (
+                <div>
+                  <span className="font-semibold inline-block w-[100px]">
+                    {item.label}
+                  </span>
+                  : {item.value}
+                </div>
+              ) : null
+            )}
             <div className="flex">
               <span className="font-semibold inline-block w-[100px]">
                 Description
@@ -131,52 +82,51 @@ const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
                 : {application.jobDescription}
               </p>
             </div>
-            {application.resumeId && (
-              <div>
-                <span className="font-semibold inline-block w-[100px]">
-                  Resume ID
-                </span>{" "}
-                : {application.resumeId}
-              </div>
-            )}
             {application.interviewRounds.length > 0 && (
               <div className="space-y-4 mb-4">
-                {application.interviewRounds.map((round, index) => (
-                  <div
-                    key={index}
-                    className="p-4 border border-gray-300 rounded dark:border-gray-700 bg-white dark:bg-gray-900"
-                  >
-                    <p>
-                      <strong>Round:</strong> {round.roundName}
-                    </p>
-                    <p>
-                      <strong>Performance:</strong> {round.performance}
-                    </p>
-                    <p>
-                      <strong>Next Interview:</strong>{" "}
-                      {round.nextInterviewDate || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Description:</strong> {round.description}
-                    </p>
-                    <p>
-                      <strong>Questions:</strong>{" "}
-                      {(round.questionsAsked as string[]).map((question) => (
-                        <li
-                          key={question}
-                          style={{ listStyle: "none", marginLeft: "10px" }}
-                        >
-                          {question}
-                        </li>
-                      ))}
-                    </p>
-                  </div>
+                {application.interviewRounds.map((round) => (
+                  <InterviewRoundCard
+                    key={round.roundName}
+                    interviewRound={round}
+                  />
                 ))}
               </div>
             )}
           </div>
         </>
       )}
+    </div>
+  );
+};
+
+export const InterviewRoundCard = ({
+  interviewRound,
+}: {
+  interviewRound: InterviewRound;
+}) => {
+  return (
+    <div className="p-4 border border-gray-300 rounded dark:border-gray-700 bg-white dark:bg-gray-900">
+      <p>
+        <strong>Round:</strong> {interviewRound.roundName}
+      </p>
+      <p>
+        <strong>Performance:</strong> {interviewRound.performance}
+      </p>
+      <p>
+        <strong>Next Interview:</strong>{" "}
+        {interviewRound.nextInterviewDate || "N/A"}
+      </p>
+      <p>
+        <strong>Description:</strong> {interviewRound.description}
+      </p>
+      <p>
+        <strong>Questions:</strong>{" "}
+        {(interviewRound.questionsAsked as string[]).map((question) => (
+          <li key={question} style={{ listStyle: "none", marginLeft: "10px" }}>
+            {question}
+          </li>
+        ))}
+      </p>
     </div>
   );
 };
