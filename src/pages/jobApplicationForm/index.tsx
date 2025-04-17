@@ -10,8 +10,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import httpMethods from "service/index";
 import { RootState } from "store/index";
+import { jobApplicationConfig } from "./config";
+import { JobApplicationFormType } from "./type";
 
-const initialForm = {
+const initialForm: JobApplicationFormType = {
   jobId: "J12345",
   company: "X Company",
   position: "Frontend Developer",
@@ -74,106 +76,39 @@ const JobApplicationForm = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <InputWithLabel
-          label="Job ID"
-          name="jobId"
-          value={formData.jobId}
-          placeHolder="Job ID"
-          onChange={handleChange}
-          required
-        />
-        <InputWithLabel
-          label="Company Name"
-          name="company"
-          value={formData.company}
-          placeHolder="Company Name"
-          onChange={handleChange}
-          required
-        />
-        <InputWithLabel
-          label="Position"
-          name="position"
-          value={formData.position}
-          placeHolder="Position"
-          onChange={handleChange}
-          required
-        />
-        <Select
-          label="Application Status"
-          name="applicationStatus"
-          value={formData.applicationStatus}
-          options={getDropdownOptions(applicationStatusTypes)}
-          onChange={handleChange}
-        />
-        <InputWithLabel
-          label="Applied Date"
-          name="appliedDate"
-          type="date"
-          value={formData.appliedDate}
-          placeHolder="Applied Date"
-          onChange={handleChange}
-        />
-
-        <InputWithLabel
-          label="Next Follow-up"
-          name="nextFollowup"
-          type="date"
-          value={formData.nextFollowup}
-          placeHolder="Next Follow-up"
-          onChange={handleChange}
-        />
-        <InputWithLabel
-          label="HR Name"
-          name="hrName"
-          value={formData.hrName}
-          placeHolder="HR Name"
-          onChange={handleChange}
-        />
-        <InputWithLabel
-          label="Hr Number"
-          name="hrNumber"
-          value={formData.hrNumber}
-          placeHolder="HR Contact Number"
-          onChange={handleChange}
-        />
-        <InputWithLabel
-          label="HR Email"
-          name="hrEmail"
-          value={formData.hrEmail}
-          placeHolder="HR Email"
-          onChange={handleChange}
-        />
-        <InputWithLabel
-          label="Comapny Location"
-          name="companyLocation"
-          value={formData.companyLocation}
-          placeHolder="Company Location"
-          onChange={handleChange}
-        />
-        <InputWithLabel
-          label="Portal"
-          name="portal"
-          value={formData.portal}
-          placeHolder="Job Platform"
-          onChange={handleChange}
-        />
-        <InputWithLabel
-          label="Application URL"
-          name="url"
-          value={formData.url}
-          placeHolder="Paste the application link"
-          onChange={handleChange}
-        />
-        <Select
-          label="Resume"
-          name="resumeId"
-          value={formData.resumeId}
-          onChange={handleChange}
-          options={resumes.map((resume) => ({
-            label: resume.name,
-            value: resume._id,
-          }))}
-        />
+        {jobApplicationConfig(resumes).map(
+          ({
+            component,
+            label,
+            name,
+            placeHolder,
+            type,
+            options,
+            isRequired,
+          }) => {
+            return component === "INPUT" ? (
+              <InputWithLabel
+                key={name}
+                label={label}
+                name={name}
+                value={formData[name]}
+                placeHolder={placeHolder}
+                onChange={handleChange}
+                type={type}
+                required={isRequired}
+              />
+            ) : (
+              <Select
+                key={name}
+                label={label}
+                name={name}
+                value={formData[name]}
+                options={options || []}
+                onChange={handleChange}
+              />
+            );
+          }
+        )}
       </div>
 
       {/* Job Description Field */}

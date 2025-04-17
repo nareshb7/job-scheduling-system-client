@@ -36,6 +36,8 @@ export interface Application {
   userId: string;
   resumeId: string;
   interviewRounds: InterviewRound[];
+  portal?: string;
+  url?: string;
 }
 
 export interface ViewApplicationProps {
@@ -48,8 +50,25 @@ export interface ApplicationCareProps {
   onClick: (app: Application) => void;
 }
 
+export interface PortalApplicationCardProps {
+  application: PortalApplication;
+  onClick: (app: PortalApplication) => void;
+}
+
 export interface EditInterviewRoundsProps {
   onSave: (data: InterviewRound) => void;
   onCancel: () => void;
   application: Application;
+}
+
+export interface PortalApplication {
+  _id: string;
+  company: string;
+  location: string;
+  description: string;
+  portal: string;
+  url: string;
+  title: string;
+  userId: string;
+  createdAt: string;
 }

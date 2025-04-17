@@ -64,6 +64,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         return;
       }
       const id = JSON.parse(userId);
+      window.postMessage({ type: "SET_USER_ID", userId: id }, "*");
+
       try {
         setIsLoading(true);
         const { data } = await httpMethods.get(`/user/${id}`);
