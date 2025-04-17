@@ -7,6 +7,7 @@ export type ApplicationStatus =
   | null;
 
 export interface InterviewRound {
+  _id?: string;
   date?: string;
   description: string;
   roundName: string;

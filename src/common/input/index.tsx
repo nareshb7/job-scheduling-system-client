@@ -61,6 +61,8 @@ export const Textarea = ({
   value,
   label,
   className,
+  rows,
+  cols,
   onChange,
 }: TextareaProps) => {
   const textArea = () => (
@@ -69,7 +71,9 @@ export const Textarea = ({
       placeholder={placeHolder}
       value={value}
       onChange={onChange}
-      className={`p-2 border border-gray-300 rounded mb-4 ${className}`}
+      className={`p-2 border border-gray-300 rounded ${className}`}
+      rows={rows}
+      cols={cols}
     />
   );
   return label ? (

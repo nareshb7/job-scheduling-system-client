@@ -1,7 +1,11 @@
 import { useAuthContext } from "authContext/index";
 import Button from "common/button";
-import InputWithLabel, { Input } from "common/input";
-import React, { useEffect, useState } from "react";
+import InputWithLabel, { Select, Textarea } from "common/input";
+import {
+  applicationStatusTypes,
+  getDropdownOptions,
+} from "pages/dashboard/container/helper";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import httpMethods from "service/index";
@@ -21,6 +25,7 @@ const initialForm = {
   notes: "",
   resumeId: "",
   hrEmail: "",
+  portal: "Linkedin",
 };
 
 const JobApplicationForm = () => {
@@ -68,31 +73,35 @@ const JobApplicationForm = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Input
+        <InputWithLabel
+          label="Job ID"
           name="jobId"
           value={formData.jobId}
           placeHolder="Job ID"
           onChange={handleChange}
           required
         />
-        <Input
+        <InputWithLabel
+          label="Company Name"
           name="company"
           value={formData.company}
           placeHolder="Company Name"
           onChange={handleChange}
           required
         />
-        <Input
+        <InputWithLabel
+          label="Position"
           name="position"
           value={formData.position}
           placeHolder="Position"
           onChange={handleChange}
           required
         />
-        <Input
+        <Select
+          label="Application Status"
           name="applicationStatus"
           value={formData.applicationStatus}
-          placeHolder="Application Status"
+          options={getDropdownOptions(applicationStatusTypes)}
           onChange={handleChange}
         />
         <InputWithLabel
@@ -112,58 +121,68 @@ const JobApplicationForm = () => {
           placeHolder="Next Follow-up"
           onChange={handleChange}
         />
-        <Input
+        <InputWithLabel
+          label="Hr Number"
           name="hrNumber"
           value={formData.hrNumber}
           placeHolder="HR Contact Number"
           onChange={handleChange}
         />
-        <Input
+        <InputWithLabel
+          label="HR Name"
           name="hrName"
           value={formData.hrName}
           placeHolder="HR Name"
           onChange={handleChange}
         />
-        <Input
+        <InputWithLabel
+          label="HR Email"
           name="hrEmail"
           value={formData.hrEmail}
           placeHolder="HR Email"
           onChange={handleChange}
         />
-        <Input
+        <InputWithLabel
+          label="Comapny Location"
           name="companyLocation"
           value={formData.companyLocation}
           placeHolder="Company Location"
           onChange={handleChange}
         />
-        <select
-          className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-gray-800 dark:bg-gray-800 dark:text-white dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <InputWithLabel
+          label="Portal"
+          name="portal"
+          value={formData.portal}
+          placeHolder="Job Platform"
+          onChange={handleChange}
+        />
+        <Select
+          label="Resume"
           name="resumeId"
           value={formData.resumeId}
           onChange={handleChange}
-        >
-          <option value="">Select Resume</option>
-          {resumes.map((resume) => (
-            <option value={resume._id}>{resume.name}</option>
-          ))}
-        </select>
+          options={resumes.map((resume) => ({
+            label: resume.name,
+            value: resume._id,
+          }))}
+        />
       </div>
 
       {/* Job Description Field */}
       <div className="mt-4 flex gap-2">
-        <textarea
+        <Textarea
           name="jobDescription"
           value={formData.jobDescription}
           onChange={handleChange}
-          placeholder="Job Description"
+          placeHolder="Job Description"
           className="w-1/2  border border-gray-300 dark:bg-gray-700 dark:text-white p-2 rounded-md"
           rows={4}
         />
-        <textarea
+        <Textarea
           name="notes"
           value={formData.notes}
           onChange={handleChange}
-          placeholder="Notes"
+          placeHolder="Notes"
           className="w-1/2 border border-gray-300 dark:bg-gray-700 dark:text-white p-2 rounded-md"
           rows={4}
         />

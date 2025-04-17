@@ -5,6 +5,8 @@ export interface TextareaProps {
   label?: string;
   className?: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  rows?: number;
+  cols?: number;
 }
 
 export interface DropDownOption {

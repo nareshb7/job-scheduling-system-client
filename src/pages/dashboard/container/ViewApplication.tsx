@@ -68,8 +68,8 @@ const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
           <div className="space-y-4">
             {getViewConfig(application).map((item) =>
               item.value ? (
-                <div>
-                  <span className="font-semibold inline-block w-[100px]">
+                <div key={item.label}>
+                  <span className="font-semibold inline-block w-[150px]">
                     {item.label}
                   </span>
                   : {item.value}
@@ -77,7 +77,7 @@ const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
               ) : null
             )}
             <div className="flex">
-              <span className="font-semibold inline-block w-[100px]">
+              <span className="font-semibold inline-block w-[150px]">
                 Description
               </span>
               <p className="mt-1 text-sm text-gray-700 dark:text-gray-300">
@@ -87,10 +87,7 @@ const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
             {application.interviewRounds.length > 0 && (
               <div className="space-y-4 mb-4">
                 {application.interviewRounds.map((round) => (
-                  <InterviewRoundCard
-                    key={round.roundName}
-                    interviewRound={round}
-                  />
+                  <InterviewRoundCard key={round._id} interviewRound={round} />
                 ))}
               </div>
             )}
@@ -124,7 +121,10 @@ export const InterviewRoundCard = ({
       <p>
         <strong>Questions:</strong>{" "}
         {(interviewRound.questionsAsked as string[]).map((question, index) => (
-          <li key={question} style={{ listStyle: "none", marginLeft: "10px" }}>
+          <li
+            key={question + index}
+            style={{ listStyle: "none", marginLeft: "10px" }}
+          >
             {index + 1}. {question}
           </li>
         ))}
