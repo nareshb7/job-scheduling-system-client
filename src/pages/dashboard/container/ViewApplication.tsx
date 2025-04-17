@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Application, InterviewRound, ViewApplicationProps } from "../types";
-import { getDate } from "utils/util";
+import { InterviewRound, ViewApplicationProps } from "../types";
 import Button from "common/button";
 import EditInterviewRounds from "./EditApplication";
 import httpMethods from "service/index";
@@ -58,7 +57,7 @@ const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
               </Button>
               <Button
                 onClick={onBack}
-                className="bg-gray-400 text-gray-800 hover:bg-gray-500 px-4 py-2 rounded"
+                className="bg-red-200 text-gray-800 hover:bg-red-300 dark:bg-red-500 dark:text-white dark:hover:bg-red-400"
               >
                 Back
               </Button>
@@ -80,9 +79,9 @@ const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
               <span className="font-semibold inline-block w-[150px]">
                 Description
               </span>
-              <p className="mt-1 text-sm text-gray-700 dark:text-gray-300">
+              <pre className="mt-1 text-sm text-gray-700 dark:text-gray-300">
                 : {application.jobDescription}
-              </p>
+              </pre>
             </div>
             {application.interviewRounds.length > 0 && (
               <div className="space-y-4 mb-4">

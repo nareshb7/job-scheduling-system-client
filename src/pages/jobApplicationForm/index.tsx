@@ -26,6 +26,7 @@ const initialForm = {
   resumeId: "",
   hrEmail: "",
   portal: "Linkedin",
+  url: "",
 };
 
 const JobApplicationForm = () => {
@@ -122,17 +123,17 @@ const JobApplicationForm = () => {
           onChange={handleChange}
         />
         <InputWithLabel
-          label="Hr Number"
-          name="hrNumber"
-          value={formData.hrNumber}
-          placeHolder="HR Contact Number"
-          onChange={handleChange}
-        />
-        <InputWithLabel
           label="HR Name"
           name="hrName"
           value={formData.hrName}
           placeHolder="HR Name"
+          onChange={handleChange}
+        />
+        <InputWithLabel
+          label="Hr Number"
+          name="hrNumber"
+          value={formData.hrNumber}
+          placeHolder="HR Contact Number"
           onChange={handleChange}
         />
         <InputWithLabel
@@ -154,6 +155,13 @@ const JobApplicationForm = () => {
           name="portal"
           value={formData.portal}
           placeHolder="Job Platform"
+          onChange={handleChange}
+        />
+        <InputWithLabel
+          label="Application URL"
+          name="url"
+          value={formData.url}
+          placeHolder="Paste the application link"
           onChange={handleChange}
         />
         <Select
