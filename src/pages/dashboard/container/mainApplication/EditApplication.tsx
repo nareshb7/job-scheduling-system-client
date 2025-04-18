@@ -1,13 +1,13 @@
 import Button from "common/button";
 import InputWithLabel, { Input, Select, Textarea } from "common/input";
 import { useState } from "react";
-import { EditInterviewRoundsProps, InterviewRound } from "../types";
+import { EditInterviewRoundsProps, InterviewRound } from "../../types";
 import {
   applicationStatusTypes,
   getDropdownOptions,
   initialEditObj,
   performanceOptions,
-} from "./helper";
+} from "../helper";
 
 const EditInterviewRounds = ({
   application,

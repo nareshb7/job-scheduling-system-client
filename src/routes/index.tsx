@@ -4,6 +4,8 @@ import JobApplicationForm from "pages/jobApplicationForm";
 import Dashboard from "pages/dashboard";
 import ResumePage from "pages/resume";
 import InterviewQuestionsPage from "pages/interviewQuestions";
+import PortalApplicationInfo from "pages/dashboard/container/portalApplication/PortalApplicationInfo";
+import ApplicationInfo from "pages/dashboard/container/mainApplication/ApplicationInfo";
 
 const basename = process.env.PUBLIC_URL || "/";
 
@@ -28,6 +30,14 @@ const router = createBrowserRouter(
         {
           path: "interview-questions",
           element: <InterviewQuestionsPage />,
+        },
+        {
+          path: "portal/:id",
+          element: <PortalApplicationInfo />,
+        },
+        {
+          path: "application/:id",
+          element: <ApplicationInfo />,
         },
       ],
     },

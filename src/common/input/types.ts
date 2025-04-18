@@ -7,6 +7,7 @@ export interface TextareaProps {
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   rows?: number;
   cols?: number;
+  disabled?: boolean;
 }
 
 export interface DropDownOption {
@@ -20,6 +21,7 @@ export interface SelectProps {
   value: string;
   name: string;
   label?: string;
+  disabled?: boolean;
 }
 
 export type InputType =
@@ -39,4 +41,5 @@ export interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   name?: string;
+  disabled?: boolean;
 }

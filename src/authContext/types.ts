@@ -11,7 +11,8 @@ export interface AuthContextProps {
   theme: ThemeType;
   handleLogout: () => void;
   fetchResumes: () => void;
-  getApplications: () => void;
+  getApplications: () => Promise<void>;
+  getPortalApplications: () => Promise<void>;
 }
 
 export interface User {

@@ -26,12 +26,12 @@ export interface Application {
   };
   _id: string;
   company: string;
-  position: string;
+  title: string;
   appliedDate: string;
   applicationStatus: ApplicationStatus;
   nextFollowup: string;
-  jobDescription: string;
-  companyLocation: string;
+  description: DescriptionType;
+  location: string;
   jobId: string;
   userId: string;
   resumeId: string;
@@ -41,11 +41,16 @@ export interface Application {
 }
 
 export interface ViewApplicationProps {
-  application: Application;
+  application: Application | PortalApplication;
   onBack: () => void;
 }
 
-export interface ApplicationCareProps {
+export interface PortalApplicationProps {
+  application: PortalApplication;
+  onBack: () => void;
+}
+
+export interface ApplicationCardProps {
   application: Application;
   onClick: (app: Application) => void;
 }
@@ -60,15 +65,22 @@ export interface EditInterviewRoundsProps {
   onCancel: () => void;
   application: Application;
 }
+export interface DescriptionType {
+  [key: string]: string | string[];
+}
 
 export interface PortalApplication {
   _id: string;
   company: string;
   location: string;
-  description: string;
+  description: DescriptionType;
   portal: string;
   url: string;
   title: string;
   userId: string;
   createdAt: string;
+  hirer: string;
+  appliedDate: string;
 }
+
+export type Tabs = "MAIN" | "PORTAL";

@@ -23,6 +23,7 @@ const LoginPage = ({ onPageChange }: LoginPageProps) => {
     try {
       const { success, data } = await httpMethods.post("/auth/login", formData);
       localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(data._id));
+      window.postMessage({ type: "SET_USER_ID", userId: data._id }, "*");
       onPageChange("", data);
     } catch (err: any) {
       console.error("login_error::", err?.message);

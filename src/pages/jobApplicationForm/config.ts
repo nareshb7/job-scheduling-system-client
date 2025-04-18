@@ -14,12 +14,19 @@ export interface JobApplicationConfig {
   component: "INPUT" | "SELECT";
   type?: InputType;
   options?: DropDownOption[];
+  isDisabled: boolean;
 }
 
-export const jobPlatforms = ["LinkedIn", "Naukri", "InstaHyre"];
+export const jobPlatforms = [
+  "LinkedIn",
+  "Naukri",
+  "InstaHyre",
+  "Career Website",
+];
 
 export const jobApplicationConfig = (
-  resumes: Resume[]
+  resumes: Resume[],
+  from: "MAIN" | "PORTAL"
 ): JobApplicationConfig[] => [
   {
     name: "jobId",
@@ -28,6 +35,7 @@ export const jobApplicationConfig = (
     isRequired: true,
     component: "INPUT",
     type: "text",
+    isDisabled: false,
   },
   {
     name: "company",
@@ -36,14 +44,16 @@ export const jobApplicationConfig = (
     isRequired: true,
     component: "INPUT",
     type: "text",
+    isDisabled: from === "PORTAL",
   },
   {
-    name: "position",
+    name: "title",
     label: "Position",
     placeHolder: "Position",
     isRequired: true,
     component: "INPUT",
     type: "text",
+    isDisabled: from === "PORTAL",
   },
   {
     name: "applicationStatus",
@@ -52,6 +62,7 @@ export const jobApplicationConfig = (
     isRequired: true,
     component: "SELECT",
     options: getDropdownOptions(applicationStatusTypes),
+    isDisabled: false,
   },
   {
     name: "appliedDate",
@@ -60,6 +71,7 @@ export const jobApplicationConfig = (
     isRequired: true,
     component: "INPUT",
     type: "date",
+    isDisabled: from === "PORTAL",
   },
   {
     name: "nextFollowup",
@@ -68,6 +80,7 @@ export const jobApplicationConfig = (
     isRequired: true,
     component: "INPUT",
     type: "date",
+    isDisabled: false,
   },
   {
     name: "hrName",
@@ -76,6 +89,7 @@ export const jobApplicationConfig = (
     isRequired: true,
     component: "INPUT",
     type: "text",
+    isDisabled: false,
   },
   {
     name: "hrNumber",
@@ -84,6 +98,7 @@ export const jobApplicationConfig = (
     isRequired: true,
     component: "INPUT",
     type: "text",
+    isDisabled: false,
   },
   {
     name: "hrEmail",
@@ -92,14 +107,16 @@ export const jobApplicationConfig = (
     isRequired: true,
     component: "INPUT",
     type: "text",
+    isDisabled: false,
   },
   {
-    name: "companyLocation",
+    name: "location",
     label: "Company Location",
     placeHolder: "Company Location",
     isRequired: true,
     component: "INPUT",
     type: "text",
+    isDisabled: from === "PORTAL",
   },
   {
     name: "portal",
@@ -107,6 +124,7 @@ export const jobApplicationConfig = (
     isRequired: true,
     component: "SELECT",
     options: getDropdownOptions(jobPlatforms),
+    isDisabled: from === "PORTAL",
   },
   {
     name: "url",
@@ -115,6 +133,7 @@ export const jobApplicationConfig = (
     isRequired: true,
     component: "INPUT",
     type: "text",
+    isDisabled: from === "PORTAL",
   },
   {
     name: "resumeId",
@@ -125,5 +144,6 @@ export const jobApplicationConfig = (
       label: resume.name,
       value: resume._id,
     })),
+    isDisabled: false,
   },
 ];

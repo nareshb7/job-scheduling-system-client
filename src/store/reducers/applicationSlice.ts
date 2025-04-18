@@ -1,12 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Application } from "pages/dashboard/types";
+import { Application, PortalApplication, Tabs } from "pages/dashboard/types";
 
 export interface ApplicationSliceState {
-  application: Application[];
+  applications: Application[];
+  portalApplications: PortalApplication[];
+  currentActiveTab: Tabs;
 }
 
 const initialState: ApplicationSliceState = {
-  application: [],
+  applications: [],
+  portalApplications: [],
+  currentActiveTab: "PORTAL",
 };
 
 const application = createSlice({
@@ -19,12 +23,31 @@ const application = createSlice({
     ) => {
       return {
         ...state,
-        application: action.payload,
+        applications: action.payload,
+      };
+    },
+    setPortalApplications: (
+      state: ApplicationSliceState,
+      action: PayloadAction<PortalApplication[]>
+    ) => {
+      return {
+        ...state,
+        portalApplications: action.payload,
+      };
+    },
+    setActiveTab: (
+      state: ApplicationSliceState,
+      action: PayloadAction<Tabs>
+    ) => {
+      return {
+        ...state,
+        currentActiveTab: action.payload,
       };
     },
   },
 });
 
-export const { setApplications } = application.actions;
+export const { setApplications, setPortalApplications, setActiveTab } =
+  application.actions;
 
 export default application.reducer;

@@ -9,6 +9,7 @@ export const Input: React.FC<InputProps> = ({
   onChange = () => "",
   required = false,
   name,
+  disabled = false,
   ...rest
 }) => {
   return (
@@ -20,6 +21,7 @@ export const Input: React.FC<InputProps> = ({
       onChange={onChange}
       required={required}
       name={name}
+      disabled={disabled}
       {...rest}
     />
   );
@@ -34,6 +36,7 @@ const InputWithLabel: React.FC<InputProps> = ({
   onChange = () => "",
   required = false,
   name = "",
+  disabled = false,
 }) => {
   return (
     <div>
@@ -50,6 +53,7 @@ const InputWithLabel: React.FC<InputProps> = ({
         onChange={onChange}
         required={required}
         name={name}
+        disabled={disabled}
       />
     </div>
   );
@@ -63,6 +67,7 @@ export const Textarea = ({
   className,
   rows,
   cols,
+  disabled = false,
   onChange,
 }: TextareaProps) => {
   const textArea = () => (
@@ -74,6 +79,7 @@ export const Textarea = ({
       className={`p-2 border border-gray-300 rounded ${className}`}
       rows={rows}
       cols={cols}
+      disabled={disabled}
     />
   );
   return label ? (
@@ -94,10 +100,12 @@ export const Select = ({
   onChange,
   options,
   label,
+  disabled = false,
 }: SelectProps) => {
   const selectComp = () => {
     return (
       <select
+        disabled={disabled}
         name={name}
         value={value}
         onChange={onChange}

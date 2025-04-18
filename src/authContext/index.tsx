@@ -6,7 +6,10 @@ import { CURRENT_THEME, CURRENT_USER_KEY } from "utils/constants";
 import { AuthContextProps, AuthProviderProps, User } from "./types";
 import { useDispatch } from "react-redux";
 import { setResumesList } from "store/reducers/resumeSlice";
-import { setApplications } from "store/reducers/applicationSlice";
+import {
+  setApplications,
+  setPortalApplications,
+} from "store/reducers/applicationSlice";
 
 const AuthContext = createContext<AuthContextProps | null>(null);
 
@@ -34,6 +37,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     setIsLoggedIn(false);
     setCurrentUser(null);
     localStorage.removeItem(CURRENT_USER_KEY);
+    window.postMessage({ type: "SET_USER_ID", userId: "" }, "*");
   };
 
   const getApplications = async () => {
@@ -44,6 +48,14 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       dispatch(setApplications(data));
     } catch (err: any) {
       console.error("get_applications_error:", err.message);
+    }
+  };
+  const getPortalApplications = async () => {
+    try {
+      const { data } = await httpMethods.get("/portal/" + currentuser?._id);
+      dispatch(setPortalApplications(data));
+    } catch (err: any) {
+      console.error("get_portal_applications_error:", err.message);
     }
   };
   const fetchResumes = async () => {
@@ -91,6 +103,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     if (currentuser?._id) {
       getApplications();
       fetchResumes();
+      getPortalApplications();
     }
   }, [currentuser?._id]);
 
@@ -112,6 +125,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         handleLogout,
         fetchResumes,
         getApplications,
+        getPortalApplications,
       }}
     >
       {isLoading ? (

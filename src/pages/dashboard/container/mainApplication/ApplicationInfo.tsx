@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import { InterviewRound, ViewApplicationProps } from "../types";
+import { Application, InterviewRound, ViewApplicationProps } from "../../types";
 import Button from "common/button";
 import EditInterviewRounds from "./EditApplication";
 import httpMethods from "service/index";
 import Spinner from "common/spinner";
 import { useAuthContext } from "authContext/index";
-import { getViewConfig } from "./helper";
+import { getViewConfig } from "../helper";
+import DynamicDescription from "../../../../components/dashboard/DescriptionCard";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
+const ApplicationInfo = () => {
+  const { state: application } = useLocation();
   const { currentuser } = useAuthContext();
+  const navigate = useNavigate();
   const [editClick, setEditClick] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -31,13 +35,16 @@ const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
       setIsLoading(false);
     }
   };
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-800 shadow rounded-md text-gray-800 dark:text-white relative">
+    <div className="max-w-full  p-6 mt-2 bg-white dark:bg-gray-800 shadow rounded-md text-gray-800 dark:text-white relative">
       {isLoading && <Spinner />}
       {editClick ? (
         <EditInterviewRounds
-          application={application}
+          application={application as Application}
           onSave={handleAddNewRound}
           onCancel={() => setEditClick(false)}
         />
@@ -56,7 +63,7 @@ const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
                 Send Follow up Email
               </Button>
               <Button
-                onClick={onBack}
+                onClick={handleBack}
                 className="bg-red-200 text-gray-800 hover:bg-red-300 dark:bg-red-500 dark:text-white dark:hover:bg-red-400"
               >
                 Back
@@ -75,17 +82,29 @@ const ViewApplication = ({ application, onBack }: ViewApplicationProps) => {
                 </div>
               ) : null
             )}
-            <div className="flex">
-              <span className="font-semibold inline-block w-[150px]">
+            <div>
+              <span className="font-semibold inline-block w-[150px]">Link</span>
+              :{" "}
+              <a
+                href={application.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 underline cursor-pointer"
+              >
+                Click here
+              </a>
+            </div>
+            <div className="flex flex-wrap sm:flex-nowrap">
+              <span className="font-semibold inline-block w-[150px] shrink-0">
                 Description
               </span>
-              <pre className="mt-1 text-sm text-gray-700 dark:text-gray-300">
-                : {application.jobDescription}
-              </pre>
+              <div className="mt-1 text-sm text-gray-700 dark:text-gray-300 text-wrap border rounded p-2">
+                <DynamicDescription descriptionData={application.description} />
+              </div>
             </div>
-            {application.interviewRounds.length > 0 && (
+            {(application as Application).interviewRounds?.length > 0 && (
               <div className="space-y-4 mb-4">
-                {application.interviewRounds.map((round) => (
+                {(application as Application).interviewRounds.map((round) => (
                   <InterviewRoundCard key={round._id} interviewRound={round} />
                 ))}
               </div>
@@ -132,4 +151,4 @@ export const InterviewRoundCard = ({
   );
 };
 
-export default ViewApplication;
+export default ApplicationInfo;

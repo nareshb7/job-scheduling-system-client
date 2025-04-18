@@ -53,7 +53,6 @@ const InterviewQuestionsPage = () => {
         const res = await httpMethods.deleteMethod(
           "/interview-questions/" + question._id
         );
-        console.log("res:::", res);
         setQuestions((prev) => prev.filter((q) => q._id !== question._id));
       }
     } catch (err: any) {
