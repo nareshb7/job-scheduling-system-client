@@ -16,6 +16,7 @@ const convertDateInputFormat = (dt: string) => {
 
 const PortalApplicationInfo = () => {
   const { state } = useLocation();
+
   const [application, setApplication] = useState<PortalApplication>(state);
   const [editApplication, setEditApplication] =
     useState<PortalApplication | null>(null);
@@ -46,6 +47,7 @@ const PortalApplicationInfo = () => {
         description: application.description,
       });
       setEditApplication(null);
+      navigate("/");
     } catch (err: any) {
       console.error("portal_to_main_application_error:", err.message);
     }

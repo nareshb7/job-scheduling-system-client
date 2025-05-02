@@ -41,3 +41,20 @@ const ApplicationCard = ({ application, onClick }: ApplicationCardProps) => {
 };
 
 export default ApplicationCard;
+
+export const ApplicationCardSkeleton = () => {
+  return (
+    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow p-4 animate-pulse">
+      <div className="flex justify-between items-center mb-3">
+        <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-1/3" />
+        <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-1/4" />
+      </div>
+
+      <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-1/2 mb-2" />
+      <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-2/3 mb-2" />
+      <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-2/5 mb-2" />
+      <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-3/5 mb-2" />
+      <div className="h-3 bg-gray-300 dark:bg-gray-600 rounded w-4/5" />
+    </div>
+  );
+};

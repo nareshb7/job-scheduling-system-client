@@ -4,6 +4,7 @@ import Button from "common/button";
 import { Input } from "common/input";
 import httpMethods from "service/index";
 import Spinner from "common/spinner";
+import { getDate } from "utils/util";
 
 interface InterviewQuestion {
   _id: string;
@@ -11,6 +12,7 @@ interface InterviewQuestion {
   answer?: string;
   company: string;
   createdAt: string;
+  topicTags: string[] | null;
 }
 
 const InterviewQuestionsPage = () => {
@@ -101,9 +103,14 @@ const InterviewQuestionsPage = () => {
             <div>
               <p className="font-semibold">Q: {q.question}</p>
               {q.answer && <p className="text-gray-600">A: {q.answer}</p>}
-              <p className="text-sm text-gray-500 mt-1">
-                Asked at: {q.company}
+              <p className="text-sm text-gray-400 mt-1">
+                Asked at: {q.company} - ( {getDate(q.createdAt)} )
               </p>
+              {q.topicTags && q.topicTags?.length > 0 && (
+                <p className="text-sm text-gray-500 mt-1">
+                  Tags: {q.topicTags.join(", ")}
+                </p>
+              )}
             </div>
             <div>
               <Button

@@ -1,21 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "store/index";
-import ApplicationCard from "./container/mainApplication/ApplicationCard";
+import ApplicationCard, {
+  ApplicationCardSkeleton,
+} from "./container/mainApplication/ApplicationCard";
 import { Application, PortalApplication } from "./types";
 import Button from "common/button";
 import { MdRefresh } from "react-icons/md";
 import { useAuthContext } from "authContext/index";
-import Spinner from "common/spinner";
 import PortalApplicationCard from "./container/portalApplication/PortalApplicationcard";
 import { useNavigate } from "react-router-dom";
 import DashboardTabs from "../../components/dashboard/DashboardTabs";
 import StatusBox from "components/dashboard/StatusBox";
+import { boxBgColor, initialApplicationCount } from "utils/constants";
 
 const Dashboard = () => {
   const { getApplications, getPortalApplications } = useAuthContext();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [applicationsCount, setApplicationCount] = useState(
+    initialApplicationCount
+  );
   const { applications, portalApplications, currentActiveTab } = useSelector(
     (state: RootState) => state.Application
   );
@@ -34,10 +39,18 @@ const Dashboard = () => {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    const appCountObj = { ...initialApplicationCount };
+    applications.forEach((application) => {
+      appCountObj[application.applicationStatus || "Applied"]++;
+    });
+
+    setApplicationCount(appCountObj);
+  }, [applications]);
+
   return (
     <div className="p-6 relative">
       {/* Need to update spinner styles */}
-      {isLoading && <Spinner />}
       <>
         <div className="flex gap-3">
           <h2 className="text-xl font-semibold">
@@ -53,34 +66,27 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-6 mt-2">
-          <StatusBox
-            title="Today Applied"
-            count={10}
-            color="dark:bg-blue-100 text-black bg-blue-400"
-          />
-          <StatusBox
-            title="In Progress"
-            count={10}
-            color="dark:bg-yellow-100 text-black bg-yellow-400"
-          />
-          <StatusBox
-            title="Accepted"
-            count={10}
-            color="dark:bg-green-100 text-black bg-green-400"
-          />
-          <StatusBox
-            title="Rejected"
-            count={10}
-            color="dark:bg-red-100 text-black bg-red-400"
-          />
-          <StatusBox
-            title="Offer Released"
-            count={10}
-            color="dark:bg-purple-100 text-black bg-purple-400"
-          />
+          {Object.entries(applicationsCount).map(([key, value]) => {
+            return (
+              <StatusBox
+                key={key}
+                title={key}
+                count={value}
+                color={boxBgColor[key]}
+              />
+            );
+          })}
         </div>
         <DashboardTabs />
-        {currentActiveTab === "PORTAL" ? (
+        {isLoading ? (
+          <div className="grid gap-4 md:grid-cols-2">
+            {Array(4)
+              .fill(0)
+              .map(() => (
+                <ApplicationCardSkeleton />
+              ))}
+          </div>
+        ) : currentActiveTab === "PORTAL" ? (
           <div className="mt-6">
             <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
               Portal Applications:{" "}

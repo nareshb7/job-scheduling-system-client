@@ -13,16 +13,6 @@ const DashboardTabs = () => {
     <div className="flex gap-4 mb-4">
       <Button
         className={` ${
-          currentActiveTab === "PORTAL"
-            ? "bg-blue-600 text-white"
-            : "bg-white text-gray-800 border border-gray-300 "
-        }`}
-        onClick={() => dispatch(setActiveTab("PORTAL"))}
-      >
-        Portal Applications
-      </Button>
-      <Button
-        className={` ${
           currentActiveTab === "MAIN"
             ? "bg-blue-600 text-white"
             : "bg-white text-gray-800 border border-gray-300"
@@ -30,6 +20,16 @@ const DashboardTabs = () => {
         onClick={() => dispatch(setActiveTab("MAIN"))}
       >
         Main Applications
+      </Button>
+      <Button
+        className={` ${
+          currentActiveTab === "PORTAL"
+            ? "bg-blue-600 text-white"
+            : "bg-white text-gray-800 border border-gray-300 "
+        }`}
+        onClick={() => dispatch(setActiveTab("PORTAL"))}
+      >
+        Portal Applications
       </Button>
     </div>
   );

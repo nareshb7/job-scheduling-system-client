@@ -10,7 +10,7 @@ export interface ApplicationSliceState {
 const initialState: ApplicationSliceState = {
   applications: [],
   portalApplications: [],
-  currentActiveTab: "PORTAL",
+  currentActiveTab: "MAIN",
 };
 
 const application = createSlice({
@@ -44,10 +44,26 @@ const application = createSlice({
         currentActiveTab: action.payload,
       };
     },
+    updateApplication: (
+      state: ApplicationSliceState,
+      action: PayloadAction<Application>
+    ) => {
+      const updatedApplication = action.payload;
+      return {
+        ...state,
+        applications: state.applications.map((app) =>
+          app._id == updatedApplication._id ? updatedApplication : app
+        ),
+      };
+    },
   },
 });
 
-export const { setApplications, setPortalApplications, setActiveTab } =
-  application.actions;
+export const {
+  setApplications,
+  setPortalApplications,
+  setActiveTab,
+  updateApplication,
+} = application.actions;
 
 export default application.reducer;

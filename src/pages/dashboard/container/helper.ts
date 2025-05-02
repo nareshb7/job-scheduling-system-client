@@ -1,6 +1,13 @@
 import { DropDownOption } from "common/input/types";
 import { Application, PortalApplication } from "../types";
 import { getDate } from "utils/util";
+import {
+  ACCEPTED,
+  APPLIED,
+  IN_PROGRESS,
+  OFFER_RELEASED,
+  REJECTED,
+} from "utils/constants";
 
 export const getDropdownOptions = (options: string[]): DropDownOption[] => {
   return options.map((opt) => ({ label: opt, value: opt }));
@@ -26,11 +33,11 @@ export const performanceOptions = [
 ];
 
 export const applicationStatusTypes = [
-  "Applied",
-  "In Progress",
-  "Accepted",
-  "Rejected",
-  "Offer Released",
+  APPLIED,
+  IN_PROGRESS,
+  ACCEPTED,
+  REJECTED,
+  OFFER_RELEASED,
 ];
 
 export const getPortalConfig = (application: PortalApplication) => {

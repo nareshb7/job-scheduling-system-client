@@ -8,11 +8,15 @@ import { useAuthContext } from "authContext/index";
 import { getViewConfig } from "../helper";
 import DynamicDescription from "../../../../components/dashboard/DescriptionCard";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateApplication } from "store/reducers/applicationSlice";
 
 const ApplicationInfo = () => {
-  const { state: application } = useLocation();
-  const { currentuser } = useAuthContext();
+  const { state } = useLocation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { currentuser } = useAuthContext();
+  const [application, setApplication] = useState(state);
   const [editClick, setEditClick] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,7 +31,8 @@ const ApplicationInfo = () => {
         "/applications/update/" + application._id,
         { ...data, userId: currentuser?._id }
       );
-
+      setApplication(res.data);
+      dispatch(updateApplication(res.data));
       setEditClick(false);
     } catch (err: any) {
       console.error("add_new_interview_round:", err.message);
