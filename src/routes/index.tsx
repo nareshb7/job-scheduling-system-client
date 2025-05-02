@@ -6,6 +6,7 @@ import ResumePage from "pages/resume";
 import InterviewQuestionsPage from "pages/interviewQuestions";
 import PortalApplicationInfo from "pages/dashboard/container/portalApplication/PortalApplicationInfo";
 import ApplicationInfo from "pages/dashboard/container/mainApplication/ApplicationInfo";
+import Profile from "pages/profile";
 
 const basename = process.env.PUBLIC_URL || "/";
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter(
         {
           path: "application/:id",
           element: <ApplicationInfo />,
+        },
+        {
+          path: "profile",
+          element: <Profile />,
         },
       ],
     },

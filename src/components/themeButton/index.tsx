@@ -1,7 +1,7 @@
 import { ThemeType } from "authContext/types";
 import Button from "common/button";
 import React from "react";
-import { MdDarkMode, MdLightMode, MdOutlineLightMode } from "react-icons/md";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 export interface ThemeButtonProps {
   toggleTheme: () => void;
@@ -9,16 +9,18 @@ export interface ThemeButtonProps {
 }
 
 const ThemeButton = ({ toggleTheme, theme }: ThemeButtonProps) => {
+  const isDark = theme === "dark";
+
   return (
     <Button
       onClick={toggleTheme}
-      className="bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600"
+      className={`p-2 rounded-full transition ${
+        isDark
+          ? "bg-gray-700 hover:bg-gray-600 text-white"
+          : "bg-gray-300 hover:bg-gray-400 text-black"
+      }`}
     >
-      {theme === "dark" ? (
-        <MdDarkMode fontSize={22} />
-      ) : (
-        <MdLightMode fontSize={22} />
-      )}
+      {isDark ? <MdDarkMode size={22} /> : <MdLightMode size={22} />}
     </Button>
   );
 };
