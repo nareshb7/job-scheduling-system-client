@@ -5,13 +5,13 @@ import React, { useState } from "react";
 import httpMethods from "service";
 
 const initialSignupData = {
-  firstName: "Naresh",
-  lastName: "Baleboina",
-  email: "nareshbjava7@gmail.com",
-  mobile: "9010586402",
-  location: "Kodad",
-  password: "Naresh@123",
-  role: "UI Developer",
+  firstName: "",
+  lastName: "",
+  email: "",
+  mobile: "",
+  location: "",
+  password: "",
+  role: "",
 };
 
 const SignupPage = ({ onPageChange }: SignupPageProps) => {

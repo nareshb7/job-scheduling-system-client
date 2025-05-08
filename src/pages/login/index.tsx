@@ -6,8 +6,8 @@ import httpMethods from "service/index";
 import { CURRENT_USER_KEY } from "utils/constants";
 
 const initialLoginData = {
-  email: "nareshbjava7@gmail.com",
-  password: "Naresh@123",
+  email: "",
+  password: "",
 };
 
 const LoginPage = ({ onPageChange }: LoginPageProps) => {
