@@ -8,7 +8,9 @@ export interface APIResponse {
   message?: string;
 }
 
-export const BASE_URL = "http://localhost:3001/api";
+const LIVE_URL = "https://job-scheduling-system-server.onrender.com";
+const LOCAL_URL = "http://localhost:3001";
+export const BASE_URL = `${LIVE_URL}/api`;
 
 const get = async (url: string, headers: Object = {}) => {
   return axios
