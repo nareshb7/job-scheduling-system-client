@@ -16,7 +16,7 @@ const AuthContext = createContext<AuthContextProps | null>(null);
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const dispatch = useDispatch();
   const [isLoggedin, setIsLoggedIn] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [currentuser, setCurrentUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
